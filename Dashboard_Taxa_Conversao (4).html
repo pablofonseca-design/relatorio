@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Taxa de Conversão por Etapa | Certifica</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root{
+  --o:#F15A24;--od:#B83D10;
+  --bg:#0E0D0C;--c1:#181614;--c2:#201E1C;--c3:#2A2724;
+  --b1:rgba(255,255,255,.07);--b2:rgba(255,255,255,.13);--bo:rgba(241,90,36,.30);
+  --t1:#F5F2EF;--t2:#BEB3AA;--t3:#8A7E76;--t4:#50463F;
+  --r:14px;--sh:0 6px 36px rgba(0,0,0,.65);
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--t1);min-height:100vh;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+
+/* HEADER */
+header{position:sticky;top:0;z-index:300;height:62px;
+  background:rgba(14,13,12,.92);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);
+  border-bottom:1px solid var(--b1);
+  display:flex;align-items:center;justify-content:space-between;padding:0 48px}
+.logo-text{font-family:'Sora',sans-serif;font-size:18px;font-weight:800;color:var(--o);letter-spacing:-.5px}
+.hbadge{background:rgba(241,90,36,.11);border:1px solid var(--bo);color:var(--o);
+  font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;
+  padding:4px 13px;border-radius:20px}
+
+/* HERO */
+.hero{position:relative;padding:68px 48px 100px;overflow:hidden}
+.hg1{position:absolute;top:-160px;right:-80px;width:720px;height:720px;
+  background:radial-gradient(circle,rgba(200,60,12,.15) 0%,transparent 62%);pointer-events:none}
+.hg2{position:absolute;bottom:-60px;left:4%;width:480px;height:340px;
+  background:radial-gradient(circle,rgba(241,90,36,.06) 0%,transparent 68%);pointer-events:none}
+.hrule{position:absolute;bottom:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent 4%,rgba(241,90,36,.38) 38%,rgba(241,90,36,.38) 62%,transparent 96%)}
+.hc{position:relative;z-index:1}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;
+  background:rgba(241,90,36,.09);border:1px solid rgba(241,90,36,.22);
+  padding:5px 14px;border-radius:40px;margin-bottom:20px}
+.edot{width:7px;height:7px;border-radius:50%;background:var(--o);
+  box-shadow:0 0 10px var(--o);animation:blink 2.2s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.75)}}
+.eyebrow span{font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--o)}
+.hero h1{font-family:'Sora',sans-serif;font-size:50px;font-weight:900;
+  line-height:1.05;letter-spacing:-2px;margin-bottom:14px;color:var(--t1)}
+.hl{background:linear-gradient(100deg,var(--o) 10%,#FF9660 85%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero p{color:var(--t2);font-size:14px;line-height:1.7;max-width:500px}
+
+/* NAV */
+.nav-wrap{display:flex;justify-content:center;margin-top:-30px;position:relative;z-index:50;padding:0 48px}
+.nav-pill{display:inline-flex;background:var(--c1);border:1px solid var(--b1);
+  border-radius:50px;padding:4px;gap:2px;box-shadow:var(--sh)}
+.nav-tab{padding:9px 20px;border:none;background:transparent;
+  font-family:'Sora',sans-serif;font-size:12px;font-weight:700;
+  color:var(--t3);cursor:pointer;border-radius:40px;
+  transition:all .28s cubic-bezier(.4,0,.2,1);letter-spacing:-.1px;white-space:nowrap}
+.nav-tab.on{background:linear-gradient(135deg,var(--od),var(--o));color:#fff;
+  box-shadow:0 3px 16px rgba(241,90,36,.42)}
+.nav-tab:not(.on):hover{color:var(--t1);background:rgba(255,255,255,.06)}
+
+/* MAIN */
+main{padding:44px 48px 90px;max-width:1400px;margin:0 auto}
+.view{display:none}
+.view.on{display:block;animation:rise .35s ease}
+@keyframes rise{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
+
+/* SECTION HEADER */
+.sec{display:flex;align-items:center;gap:9px;margin:28px 0 14px}
+.sec-bar{width:3px;height:18px;background:linear-gradient(180deg,var(--o),transparent);border-radius:2px;flex-shrink:0}
+.sec-ttl{font-family:'Sora',sans-serif;font-size:15px;font-weight:700;color:var(--t1);letter-spacing:-.3px}
+.sec-sub{font-size:10px;color:var(--t3);margin-left:auto}
+
+/* MES BADGE */
+.mbadge{display:inline-flex;align-items:center;gap:7px;padding:4px 12px;border-radius:20px;
+  font-size:10px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;margin-bottom:16px}
+.m-jan{background:rgba(74,158,232,.11);border:1px solid rgba(74,158,232,.28);color:#5AABF0}
+.m-fev{background:rgba(241,90,36,.11);border:1px solid rgba(241,90,36,.28);color:var(--o)}
+
+/* KPIs */
+.kpis{display:grid;gap:12px;margin-bottom:20px}
+.kpis-4{grid-template-columns:repeat(4,1fr)}
+.kpis-5{grid-template-columns:repeat(5,1fr)}
+.kpis-3{grid-template-columns:repeat(3,1fr)}
+.kpi{background:var(--c1);border:1px solid var(--b1);border-radius:var(--r);
+  padding:18px 16px 16px;position:relative;overflow:hidden;
+  transition:border-color .2s,transform .18s;cursor:default}
+.kpi::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:var(--o);transform:scaleX(0);transform-origin:left;transition:transform .3s ease}
+.kpi:hover{border-color:var(--bo);transform:translateY(-2px)}
+.kpi:hover::before{transform:scaleX(1)}
+.ki{font-size:17px;margin-bottom:10px;display:block}
+.kl{font-size:9px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--t3);margin-bottom:5px}
+.kv{font-family:'Sora',sans-serif;font-size:34px;font-weight:900;
+  letter-spacing:-1.8px;line-height:1;color:var(--t1);margin-bottom:4px}
+.kv.ac{color:var(--o)}
+.kv.bl{color:#5AABF0}
+.kv.am{color:#F0B030}
+.kv.gr{color:#26C36A}
+.kn{font-size:11px;color:var(--t2);line-height:1.35}
+
+/* GRID / CARD */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+.g1{margin-bottom:14px}
+.card{background:var(--c1);border:1px solid var(--b1);border-radius:var(--r);
+  padding:22px;transition:border-color .2s}
+.card:hover{border-color:rgba(241,90,36,.16)}
+.ct{font-family:'Sora',sans-serif;font-size:13px;font-weight:700;
+  color:var(--t1);margin-bottom:2px;letter-spacing:-.3px}
+.cs{font-size:10px;color:var(--t3);margin-bottom:18px}
+.divl{height:1px;background:linear-gradient(90deg,transparent,var(--b2),transparent);margin:4px 0 14px}
+
+/* FUNIL DE CONVERSÃO */
+.fnw{display:flex;flex-direction:column;gap:10px;margin-top:14px}
+.fnrow{display:grid;grid-template-columns:160px 1fr 110px;align-items:center;gap:14px}
+.fnsn{font-size:9px;font-weight:700;color:var(--t3);margin-bottom:2px;
+  text-transform:uppercase;letter-spacing:.6px}
+.fnnum{font-family:'Sora',sans-serif;font-size:18px;font-weight:900;
+  color:var(--t1);letter-spacing:-.8px;line-height:1}
+.fnsub{font-size:9px;color:var(--t3);margin-top:1px}
+.fntrack{height:32px;background:rgba(255,255,255,.05);border-radius:6px;overflow:hidden}
+.fnfill{height:100%;border-radius:6px;display:flex;align-items:center;
+  padding-left:10px;position:relative;overflow:hidden;min-width:4px}
+.fnfill::after{content:'';position:absolute;top:0;left:-80%;width:50%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.13),transparent);
+  animation:sh 3s ease-in-out infinite}
+@keyframes sh{0%{left:-80%}100%{left:180%}}
+.fnfl{font-family:'Sora',sans-serif;font-size:11px;font-weight:700;
+  color:#fff;white-space:nowrap;position:relative;z-index:1}
+.fnr{text-align:right}
+.fnpct{font-family:'Sora',sans-serif;font-size:20px;font-weight:800;
+  color:var(--t1);letter-spacing:-.6px}
+.fnconv{font-size:9px;color:var(--t3);margin-top:2px}
+.fnzero{opacity:.35}
+
+/* TABLE */
+.tscroll{overflow-x:auto}
+table{width:100%;border-collapse:collapse}
+thead th{padding:9px 11px;text-align:left;font-size:9px;font-weight:700;
+  letter-spacing:1px;text-transform:uppercase;color:var(--t2);
+  background:var(--c2);border-bottom:1px solid var(--b2);white-space:nowrap}
+thead th:first-child{padding-left:18px}
+tbody tr{border-bottom:1px solid rgba(255,255,255,.035);transition:background .14s}
+tbody tr:hover{background:rgba(241,90,36,.04)}
+tbody tr:last-child{border-bottom:none}
+tbody td{padding:10px 11px;font-size:11px;color:var(--t2);vertical-align:middle}
+tbody td:first-child{padding-left:18px;color:var(--t1);font-size:11.5px;font-weight:600}
+.tn{text-align:center;font-family:'Sora',sans-serif;font-size:12px;font-weight:600;color:var(--t1)}
+.tc{text-align:center;font-family:'Sora',sans-serif;font-size:13px;font-weight:800;color:var(--o) !important}
+.tz{color:var(--t4) !important;font-weight:400}
+.tpct{text-align:center;font-family:'Sora',sans-serif;font-size:12px;font-weight:700}
+.tpct.hi{color:#26C36A}
+.tpct.mid{color:#F0B030}
+.tpct.lo{color:var(--t3)}
+
+/* TREND */
+.trend{display:inline-flex;align-items:center;gap:3px;font-size:10px;font-weight:700;
+  padding:2px 7px;border-radius:10px;margin-left:8px}
+.up{background:rgba(38,195,106,.12);color:#26C36A}
+.dn{background:rgba(239,83,80,.12);color:#EF5350}
+.eq{background:rgba(255,255,255,.07);color:var(--t3)}
+
+/* FOOTER */
+footer{text-align:center;padding:24px;color:var(--t3);font-size:11px;border-top:1px solid var(--b1)}
+footer b{color:var(--o)}
+
+@media(max-width:1100px){
+  .kpis-5{grid-template-columns:repeat(3,1fr)}
+  .g2{grid-template-columns:1fr}
+}
+@media(max-width:900px){
+  header,main,.hero,.nav-wrap{padding-left:18px;padding-right:18px}
+  .hero h1{font-size:32px}
+  .kpis-4,.kpis-5,.kpis-3{grid-template-columns:repeat(2,1fr)}
+  .fnrow{grid-template-columns:110px 1fr 80px;gap:8px}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo-text">Certifica</div>
+  <span class="hbadge">Relatório Comercial 2026</span>
+</header>
+
+<div class="hero">
+  <div class="hg1"></div><div class="hg2"></div><div class="hrule"></div>
+  <div class="hc">
+    <div class="eyebrow"><div class="edot"></div><span>Funil de Vendas · PI &amp; PA · Jan–Fev 2026</span></div>
+    <h1>Taxa de Conversão<br><span class="hl">por Etapa do Funil</span></h1>
+    <p>Diagnóstico completo da conversão em cada etapa do pipeline comercial — quantos leads fecharam negócio em relação ao total que passou por cada etapa.</p>
+  </div>
+</div>
+
+<div class="nav-wrap">
+  <div class="nav-pill">
+    <button class="nav-tab on"  onclick="go('total',this)">📊 Visão Geral</button>
+    <button class="nav-tab"     onclick="go('jan-pi',this)">Janeiro · PI</button>
+    <button class="nav-tab"     onclick="go('jan-pa',this)">Janeiro · PA</button>
+    <button class="nav-tab"     onclick="go('fev-pi',this)">Fevereiro · PI</button>
+    <button class="nav-tab"     onclick="go('fev-pa',this)">Fevereiro · PA</button>
+  </div>
+</div>
+
+<main>
+
+<!-- ══════════ VISÃO GERAL ══════════ -->
+<div class="view on" id="v-total">
+  <div class="kpis kpis-5">
+    <div class="kpi"><span class="ki">🎯</span><div class="kl">Total Leads PI+PA</div><div class="kv ac">8.473</div><div class="kn">Jan + Fev · todas as etapas</div></div>
+    <div class="kpi"><span class="ki">✅</span><div class="kl">Total Conversões</div><div class="kv gr">423</div><div class="kn">Fechamentos confirmados</div></div>
+    <div class="kpi"><span class="ki">📈</span><div class="kl">Taxa Geral</div><div class="kv">5,0%</div><div class="kn">Média PI + PA consolidada</div></div>
+    <div class="kpi"><span class="ki">📘</span><div class="kl">Melhor PI — Fechado</div><div class="kv bl">47,3%</div><div class="kn">Média Jan+Fev na etapa final</div></div>
+    <div class="kpi"><span class="ki">📙</span><div class="kl">Melhor PA — Credenciamento</div><div class="kv am">47,2%</div><div class="kn">Média Jan+Fev na etapa final</div></div>
+  </div>
+
+  <div class="g2">
+    <div class="card">
+      <div class="ct">PI — Taxa de Conversão por Etapa</div>
+      <div class="cs">Janeiro vs Fevereiro · % de leads que fecharam negócio na etapa</div>
+      <canvas id="c-pi-comp" height="220"></canvas>
+    </div>
+    <div class="card">
+      <div class="ct">PA — Taxa de Conversão por Etapa</div>
+      <div class="cs">Janeiro vs Fevereiro · % de leads que fecharam negócio na etapa</div>
+      <canvas id="c-pa-comp" height="220"></canvas>
+    </div>
+  </div>
+
+  <div class="sec"><div class="sec-bar"></div><span class="sec-ttl">📋 Tabela Comparativa — Todos os Períodos</span><span class="sec-sub">Total Leads · Conversões · Taxa %</span></div>
+  <div class="card g1">
+    <div class="ct">PI — Parceiro Indicador</div><div class="cs">Taxa de conversão por etapa · Jan e Fev 2026</div>
+    <div class="divl"></div>
+    <div class="tscroll">
+      <table>
+        <thead><tr>
+          <th>Etapa do Funil</th>
+          <th style="text-align:center">Total Jan</th><th style="text-align:center">Conv. Jan</th><th style="text-align:center">Taxa Jan</th>
+          <th style="text-align:center">Total Fev</th><th style="text-align:center">Conv. Fev</th><th style="text-align:center">Taxa Fev</th>
+          <th style="text-align:center">Variação</th>
+        </tr></thead>
+        <tbody id="tb-total-pi"></tbody>
+      </table>
+    </div>
+  </div>
+  <div class="card g1">
+    <div class="ct">PA — Ponto de Atendimento</div><div class="cs">Taxa de conversão por etapa · Jan e Fev 2026</div>
+    <div class="divl"></div>
+    <div class="tscroll">
+      <table>
+        <thead><tr>
+          <th>Etapa do Funil</th>
+          <th style="text-align:center">Total Jan</th><th style="text-align:center">Conv. Jan</th><th style="text-align:center">Taxa Jan</th>
+          <th style="text-align:center">Total Fev</th><th style="text-align:center">Conv. Fev</th><th style="text-align:center">Taxa Fev</th>
+          <th style="text-align:center">Variação</th>
+        </tr></thead>
+        <tbody id="tb-total-pa"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ JANEIRO PI ══════════ -->
+<div class="view" id="v-jan-pi">
+  <div class="mbadge m-jan">📅 Janeiro 2026 · PI — Parceiro Indicador</div>
+  <div class="kpis kpis-4">
+    <div class="kpi"><span class="ki">👥</span><div class="kl">Total Leads no Funil</div><div class="kv bl">3.973</div><div class="kn">Todos os leads do mês</div></div>
+    <div class="kpi"><span class="ki">✅</span><div class="kl">Total Conversões</div><div class="kv gr">173</div><div class="kn">Fechamentos em Jan</div></div>
+    <div class="kpi"><span class="ki">📈</span><div class="kl">Melhor Etapa</div><div class="kv ac">47,1%</div><div class="kn">5. Fechado</div></div>
+    <div class="kpi"><span class="ki">📉</span><div class="kl">Pior Etapa</div><div class="kv">0,2%</div><div class="kn">Prospecção e Contato</div></div>
+  </div>
+  <div class="g2">
+    <div class="card">
+      <div class="ct">Taxa de Conversão por Etapa — PI Janeiro</div>
+      <div class="cs">% de leads que fecharam negócio em cada etapa</div>
+      <canvas id="c-jan-pi" height="230"></canvas>
+    </div>
+    <div class="card">
+      <div class="ct">Funil de Conversão — PI Janeiro</div>
+      <div class="cs">Total de leads e taxa de conversão por etapa</div>
+      <div class="fnw" id="fn-jan-pi"></div>
+    </div>
+  </div>
+  <div class="card g1">
+    <div class="ct">Detalhamento por Etapa — PI Janeiro</div><div class="cs">Total de leads, conversões e taxa %</div>
+    <div class="divl"></div>
+    <div class="tscroll"><table>
+      <thead><tr><th>Etapa do Funil</th><th style="text-align:center">Total Leads</th><th style="text-align:center">Conversões</th><th style="text-align:center">Taxa Conv.</th></tr></thead>
+      <tbody id="tb-jan-pi"></tbody>
+    </table></div>
+  </div>
+</div>
+
+<!-- ══════════ JANEIRO PA ══════════ -->
+<div class="view" id="v-jan-pa">
+  <div class="mbadge m-jan">📅 Janeiro 2026 · PA — Ponto de Atendimento</div>
+  <div class="kpis kpis-4">
+    <div class="kpi"><span class="ki">👥</span><div class="kl">Total Leads no Funil</div><div class="kv bl">1.323</div><div class="kn">Todos os leads do mês</div></div>
+    <div class="kpi"><span class="ki">✅</span><div class="kl">Total Conversões</div><div class="kv gr">39</div><div class="kn">Fechamentos em Jan</div></div>
+    <div class="kpi"><span class="ki">📈</span><div class="kl">Melhor Etapa</div><div class="kv ac">46,7%</div><div class="kn">6. Em Credenciamento</div></div>
+    <div class="kpi"><span class="ki">📉</span><div class="kl">Pior Etapa</div><div class="kv">0,0%</div><div class="kn">Prospecção e Contato</div></div>
+  </div>
+  <div class="g2">
+    <div class="card">
+      <div class="ct">Taxa de Conversão por Etapa — PA Janeiro</div>
+      <div class="cs">% de leads que fecharam negócio em cada etapa</div>
+      <canvas id="c-jan-pa" height="230"></canvas>
+    </div>
+    <div class="card">
+      <div class="ct">Funil de Conversão — PA Janeiro</div>
+      <div class="cs">Total de leads e taxa de conversão por etapa</div>
+      <div class="fnw" id="fn-jan-pa"></div>
+    </div>
+  </div>
+  <div class="card g1">
+    <div class="ct">Detalhamento por Etapa — PA Janeiro</div><div class="cs">Total de leads, conversões e taxa %</div>
+    <div class="divl"></div>
+    <div class="tscroll"><table>
+      <thead><tr><th>Etapa do Funil</th><th style="text-align:center">Total Leads</th><th style="text-align:center">Conversões</th><th style="text-align:center">Taxa Conv.</th></tr></thead>
+      <tbody id="tb-jan-pa"></tbody>
+    </table></div>
+  </div>
+</div>
+
+<!-- ══════════ FEVEREIRO PI ══════════ -->
+<div class="view" id="v-fev-pi">
+  <div class="mbadge m-fev">📅 Fevereiro 2026 · PI — Parceiro Indicador</div>
+  <div class="kpis kpis-4">
+    <div class="kpi"><span class="ki">👥</span><div class="kl">Total Leads no Funil</div><div class="kv ac">2.833</div><div class="kn">Todos os leads do mês</div></div>
+    <div class="kpi"><span class="ki">✅</span><div class="kl">Total Conversões</div><div class="kv gr">174</div><div class="kn">Fechamentos em Fev</div></div>
+    <div class="kpi"><span class="ki">📈</span><div class="kl">Melhor Etapa</div><div class="kv ac">47,6%</div><div class="kn">5. Fechado</div></div>
+    <div class="kpi"><span class="ki">📉</span><div class="kl">Pior Etapa</div><div class="kv">0,0%</div><div class="kn">Prospecção</div></div>
+  </div>
+  <div class="g2">
+    <div class="card">
+      <div class="ct">Taxa de Conversão por Etapa — PI Fevereiro</div>
+      <div class="cs">% de leads que fecharam negócio em cada etapa</div>
+      <canvas id="c-fev-pi" height="230"></canvas>
+    </div>
+    <div class="card">
+      <div class="ct">Funil de Conversão — PI Fevereiro</div>
+      <div class="cs">Total de leads e taxa de conversão por etapa</div>
+      <div class="fnw" id="fn-fev-pi"></div>
+    </div>
+  </div>
+  <div class="card g1">
+    <div class="ct">Detalhamento por Etapa — PI Fevereiro</div><div class="cs">Total de leads, conversões e taxa %</div>
+    <div class="divl"></div>
+    <div class="tscroll"><table>
+      <thead><tr><th>Etapa do Funil</th><th style="text-align:center">Total Leads</th><th style="text-align:center">Conversões</th><th style="text-align:center">Taxa Conv.</th></tr></thead>
+      <tbody id="tb-fev-pi"></tbody>
+    </table></div>
+  </div>
+</div>
+
+<!-- ══════════ FEVEREIRO PA ══════════ -->
+<div class="view" id="v-fev-pa">
+  <div class="mbadge m-fev">📅 Fevereiro 2026 · PA — Ponto de Atendimento</div>
+  <div class="kpis kpis-4">
+    <div class="kpi"><span class="ki">👥</span><div class="kl">Total Leads no Funil</div><div class="kv am">794</div><div class="kn">Todos os leads do mês</div></div>
+    <div class="kpi"><span class="ki">✅</span><div class="kl">Total Conversões</div><div class="kv gr">11</div><div class="kn">Fechamentos em Fev</div></div>
+    <div class="kpi"><span class="ki">📈</span><div class="kl">Melhor Etapa</div><div class="kv ac">47,8%</div><div class="kn">6. Em Credenciamento</div></div>
+    <div class="kpi"><span class="ki">📉</span><div class="kl">Pior Etapa</div><div class="kv">0,0%</div><div class="kn">Prospecção até Fechado</div></div>
+  </div>
+  <div class="g2">
+    <div class="card">
+      <div class="ct">Taxa de Conversão por Etapa — PA Fevereiro</div>
+      <div class="cs">% de leads que fecharam negócio em cada etapa</div>
+      <canvas id="c-fev-pa" height="230"></canvas>
+    </div>
+    <div class="card">
+      <div class="ct">Funil de Conversão — PA Fevereiro</div>
+      <div class="cs">Total de leads e taxa de conversão por etapa</div>
+      <div class="fnw" id="fn-fev-pa"></div>
+    </div>
+  </div>
+  <div class="card g1">
+    <div class="ct">Detalhamento por Etapa — PA Fevereiro</div><div class="cs">Total de leads, conversões e taxa %</div>
+    <div class="divl"></div>
+    <div class="tscroll"><table>
+      <thead><tr><th>Etapa do Funil</th><th style="text-align:center">Total Leads</th><th style="text-align:center">Conversões</th><th style="text-align:center">Taxa Conv.</th></tr></thead>
+      <tbody id="tb-fev-pa"></tbody>
+    </table></div>
+  </div>
+</div>
+
+</main>
+<footer>Relatório Comercial 2026 · <b>Certifica</b> · PI = Parceiro Indicador · PA = Ponto de Atendimento</footer>
+
+<script>
+Chart.defaults.color='#8A7E76';
+Chart.defaults.font.family="'Inter',sans-serif";
+const CI={};
+function mk(id,cfg){const el=document.getElementById(id);if(!el)return;if(CI[id])CI[id].destroy();CI[id]=new Chart(el.getContext('2d'),cfg)}
+
+// ── DADOS ────────────────────────────────────────────────────────────
+// formato: {etapa, totalJan, convJan, taxaJan, totalFev, convFev, taxaFev}
+const D = {
+  pi: [
+    {e:'1. Prospecção',         tj:1246, cj:3,  txj:0.2, tf:460,  cf:0,  txf:0.0},
+    {e:'2. Contato: 1ª Lig.',   tj:1050, cj:2,  txj:0.2, tf:1502, cf:7,  txf:0.5},
+    {e:'3. Apres. Proposta',    tj:226,  cj:37, txj:16.4,tf:116,  cf:21, txf:18.1},
+    {e:'4. Em Análise',         tj:1313, cj:66, txj:5.0, tf:608,  cf:76, txf:12.5},
+    {e:'5. Fechado',            tj:138,  cj:65, txj:47.1,tf:147,  cf:70, txf:47.6},
+  ],
+  pa: [
+    {e:'1. Prospecção',         tj:45,   cj:0,  txj:0.0, tf:10,   cf:0,  txf:0.0},
+    {e:'2. Contato: 1ª Lig.',   tj:778,  cj:0,  txj:0.0, tf:618,  cf:0,  txf:0.0},
+    {e:'3. Apres. Proposta',    tj:117,  cj:1,  txj:0.9, tf:47,   cf:0,  txf:0.0},
+    {e:'4. Em Análise',         tj:304,  cj:2,  txj:0.7, tf:82,   cf:0,  txf:0.0},
+    {e:'5. Fechado',            tj:4,    cj:1,  txj:25.0,tf:2,    cf:0,  txf:0.0},
+    {e:'6. Em Credenciamento',  tj:75,   cj:35, txj:46.7,tf:23,   cf:11, txf:47.8},
+  ]
+};
+
+// ── HELPERS ──────────────────────────────────────────────────────────
+const AXIS={
+  x:{grid:{color:'rgba(255,255,255,.055)'},ticks:{color:'#8A7E76',font:{size:10}}},
+  y:{grid:{color:'rgba(255,255,255,.055)'},ticks:{color:'#BEB3AA',font:{size:10}}}
+};
+
+function taxaColor(t){
+  if(t>=30) return '#26C36A';
+  if(t>=10) return '#F0B030';
+  if(t>=1)  return '#F15A24';
+  return 'rgba(241,90,36,.35)';
+}
+
+function barChart(id, labels, jan, fev){
+  mk(id,{type:'bar',
+    data:{labels,datasets:[
+      {label:'Janeiro', data:jan, backgroundColor:'rgba(90,171,240,.75)', borderRadius:6, borderSkipped:false},
+      {label:'Fevereiro',data:fev,backgroundColor:'#F15A24',              borderRadius:6, borderSkipped:false}
+    ]},
+    options:{responsive:true,
+      plugins:{
+        legend:{position:'bottom',labels:{color:'#BEB3AA',font:{size:10},boxWidth:9,padding:12}},
+        tooltip:{callbacks:{label:c=>` ${c.dataset.label}: ${c.raw.toFixed(1)}%`}}
+      },
+      scales:{
+        x:{...AXIS.x,grid:{display:false}},
+        y:{...AXIS.y,ticks:{callback:v=>v+'%'}}
+      }
+    }
+  });
+}
+
+function doFunnel(elId, rows){
+  const el=document.getElementById(elId);if(!el)return;
+  const maxTotal=Math.max(...rows.map(r=>r.total));
+  el.innerHTML=rows.map(r=>{
+    const w=Math.max((r.total/maxTotal)*100,2).toFixed(1);
+    const col=taxaColor(r.taxa);
+    const zero=r.taxa===0;
+    return`<div class="fnrow ${zero?'fnzero':''}">
+      <div>
+        <div class="fnsn">${r.etapa}</div>
+        <div class="fnnum">${r.total.toLocaleString('pt-BR')}</div>
+        <div class="fnsub">${r.conv.toLocaleString('pt-BR')} conversões</div>
+      </div>
+      <div class="fntrack">
+        <div class="fnfill" style="width:${w}%;background:linear-gradient(90deg,${col}99,${col})">
+          <span class="fnfl">${r.total.toLocaleString('pt-BR')} leads</span>
+        </div>
+      </div>
+      <div class="fnr">
+        <div class="fnpct" style="color:${col}">${r.taxa.toFixed(1)}%</div>
+        <div class="fnconv">conversão</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function trendBadge(jan, fev){
+  const d=(fev-jan).toFixed(1);
+  if(fev>jan) return`<span class="trend up">▲ +${d}pp</span>`;
+  if(fev<jan) return`<span class="trend dn">▼ ${d}pp</span>`;
+  return`<span class="trend eq">= sem alteração</span>`;
+}
+
+function fillTableTotal(id, data){
+  const tb=document.getElementById(id);if(!tb)return;
+  tb.innerHTML=data.map(r=>{
+    const cj=r.txj>=30?'hi':r.txj>=5?'mid':'lo';
+    const cf=r.txf>=30?'hi':r.txf>=5?'mid':'lo';
+    return`<tr>
+      <td>${r.e}</td>
+      <td class="tn">${r.tj.toLocaleString('pt-BR')}</td>
+      <td class="tn">${r.cj>0?r.cj.toLocaleString('pt-BR'):'<span class="tz">—</span>'}</td>
+      <td class="tpct ${cj}">${r.txj.toFixed(1)}%</td>
+      <td class="tn">${r.tf.toLocaleString('pt-BR')}</td>
+      <td class="tn">${r.cf>0?r.cf.toLocaleString('pt-BR'):'<span class="tz">—</span>'}</td>
+      <td class="tpct ${cf}">${r.txf.toFixed(1)}%</td>
+      <td>${trendBadge(r.txj,r.txf)}</td>
+    </tr>`;
+  }).join('');
+}
+
+function fillTableMonth(id, rows){
+  const tb=document.getElementById(id);if(!tb)return;
+  tb.innerHTML=rows.map(r=>{
+    const cls=r.taxa>=30?'hi':r.taxa>=5?'mid':'lo';
+    return`<tr>
+      <td>${r.etapa}</td>
+      <td class="tn">${r.total.toLocaleString('pt-BR')}</td>
+      <td class="tn">${r.conv>0?r.conv.toLocaleString('pt-BR'):'<span class="tz">—</span>'}</td>
+      <td class="tpct ${cls}">${r.taxa.toFixed(1)}%</td>
+    </tr>`;
+  }).join('');
+}
+
+// ── INIT ─────────────────────────────────────────────────────────────
+function init(){
+  const piLabels = D.pi.map(r=>r.e);
+  const paLabels = D.pa.map(r=>r.e);
+
+  // Visão Geral — gráficos comparativos
+  barChart('c-pi-comp', piLabels, D.pi.map(r=>r.txj), D.pi.map(r=>r.txf));
+  barChart('c-pa-comp', paLabels, D.pa.map(r=>r.txj), D.pa.map(r=>r.txf));
+
+  // Tabelas visão geral
+  fillTableTotal('tb-total-pi', D.pi);
+  fillTableTotal('tb-total-pa', D.pa);
+
+  // Janeiro PI
+  const janPiRows=D.pi.map(r=>({etapa:r.e,total:r.tj,conv:r.cj,taxa:r.txj}));
+  mk('c-jan-pi',{type:'bar',
+    data:{labels:piLabels,datasets:[{
+      data:D.pi.map(r=>r.txj),
+      backgroundColor:D.pi.map(r=>taxaColor(r.txj)),
+      borderRadius:8,borderSkipped:false
+    }]},
+    options:{responsive:true,
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>` ${c.raw.toFixed(1)}% de conversão`}}},
+      scales:{x:{...AXIS.x,grid:{display:false}},y:{...AXIS.y,ticks:{callback:v=>v+'%'}}}
+    }
+  });
+  doFunnel('fn-jan-pi', janPiRows);
+  fillTableMonth('tb-jan-pi', janPiRows);
+
+  // Janeiro PA
+  const janPaRows=D.pa.map(r=>({etapa:r.e,total:r.tj,conv:r.cj,taxa:r.txj}));
+  mk('c-jan-pa',{type:'bar',
+    data:{labels:paLabels,datasets:[{
+      data:D.pa.map(r=>r.txj),
+      backgroundColor:D.pa.map(r=>taxaColor(r.txj)),
+      borderRadius:8,borderSkipped:false
+    }]},
+    options:{responsive:true,
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>` ${c.raw.toFixed(1)}% de conversão`}}},
+      scales:{x:{...AXIS.x,grid:{display:false}},y:{...AXIS.y,ticks:{callback:v=>v+'%'}}}
+    }
+  });
+  doFunnel('fn-jan-pa', janPaRows);
+  fillTableMonth('tb-jan-pa', janPaRows);
+
+  // Fevereiro PI
+  const fevPiRows=D.pi.map(r=>({etapa:r.e,total:r.tf,conv:r.cf,taxa:r.txf}));
+  mk('c-fev-pi',{type:'bar',
+    data:{labels:piLabels,datasets:[{
+      data:D.pi.map(r=>r.txf),
+      backgroundColor:D.pi.map(r=>taxaColor(r.txf)),
+      borderRadius:8,borderSkipped:false
+    }]},
+    options:{responsive:true,
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>` ${c.raw.toFixed(1)}% de conversão`}}},
+      scales:{x:{...AXIS.x,grid:{display:false}},y:{...AXIS.y,ticks:{callback:v=>v+'%'}}}
+    }
+  });
+  doFunnel('fn-fev-pi', fevPiRows);
+  fillTableMonth('tb-fev-pi', fevPiRows);
+
+  // Fevereiro PA
+  const fevPaRows=D.pa.map(r=>({etapa:r.e,total:r.tf,conv:r.cf,taxa:r.txf}));
+  mk('c-fev-pa',{type:'bar',
+    data:{labels:paLabels,datasets:[{
+      data:D.pa.map(r=>r.txf),
+      backgroundColor:D.pa.map(r=>taxaColor(r.txf)),
+      borderRadius:8,borderSkipped:false
+    }]},
+    options:{responsive:true,
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>` ${c.raw.toFixed(1)}% de conversão`}}},
+      scales:{x:{...AXIS.x,grid:{display:false}},y:{...AXIS.y,ticks:{callback:v=>v+'%'}}}
+    }
+  });
+  doFunnel('fn-fev-pa', fevPaRows);
+  fillTableMonth('tb-fev-pa', fevPaRows);
+}
+
+function go(id,btn){
+  document.querySelectorAll('.nav-tab').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('on'));
+  document.getElementById('v-'+id).classList.add('on');
+}
+
+window.addEventListener('DOMContentLoaded',()=>setTimeout(init,80));
+</script>
+</body>
+</html>
