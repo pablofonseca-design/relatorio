@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Motivos de Perda 2026 | Certifica</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root{
+  --o:#F15A24;--od:#B83D10;
+  --bg:#0E0D0C;--c1:#181614;--c2:#201E1C;--c3:#2A2724;
+  --b1:rgba(255,255,255,.07);--b2:rgba(255,255,255,.13);--bo:rgba(241,90,36,.30);
+  --t1:#F5F2EF;--t2:#BEB3AA;--t3:#8A7E76;--t4:#50463F;
+  --r:14px;--sh:0 6px 36px rgba(0,0,0,.65);
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--t1);min-height:100vh;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+
+/* HEADER */
+header{position:sticky;top:0;z-index:300;height:62px;
+  background:rgba(14,13,12,.92);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);
+  border-bottom:1px solid var(--b1);
+  display:flex;align-items:center;justify-content:space-between;padding:0 48px}
+.logo img{height:28px;width:auto;display:block}
+.hbadge{background:rgba(241,90,36,.11);border:1px solid var(--bo);color:var(--o);
+  font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;
+  padding:4px 13px;border-radius:20px}
+
+/* HERO */
+.hero{position:relative;padding:68px 48px 100px;overflow:hidden}
+.hg1{position:absolute;top:-160px;right:-80px;width:720px;height:720px;
+  background:radial-gradient(circle,rgba(200,60,12,.15) 0%,transparent 62%);pointer-events:none}
+.hg2{position:absolute;bottom:-60px;left:4%;width:480px;height:340px;
+  background:radial-gradient(circle,rgba(241,90,36,.06) 0%,transparent 68%);pointer-events:none}
+.hrule{position:absolute;bottom:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent 4%,rgba(241,90,36,.38) 38%,rgba(241,90,36,.38) 62%,transparent 96%)}
+.hc{position:relative;z-index:1}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;
+  background:rgba(241,90,36,.09);border:1px solid rgba(241,90,36,.22);
+  padding:5px 14px;border-radius:40px;margin-bottom:20px}
+.edot{width:7px;height:7px;border-radius:50%;background:var(--o);
+  box-shadow:0 0 10px var(--o);animation:blink 2.2s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.75)}}
+.eyebrow span{font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--o)}
+.hero h1{font-family:'Sora',sans-serif;font-size:50px;font-weight:900;
+  line-height:1.05;letter-spacing:-2px;margin-bottom:14px;color:var(--t1)}
+.hl{background:linear-gradient(100deg,var(--o) 10%,#FF9660 85%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero p{color:var(--t2);font-size:14px;line-height:1.7;max-width:500px}
+
+/* NAV */
+.nav-wrap{display:flex;justify-content:center;margin-top:-30px;position:relative;z-index:50;padding:0 48px}
+.nav-pill{display:inline-flex;background:var(--c1);border:1px solid var(--b1);
+  border-radius:50px;padding:4px;gap:2px;box-shadow:var(--sh)}
+.nav-tab{padding:9px 20px;border:none;background:transparent;
+  font-family:'Sora',sans-serif;font-size:12px;font-weight:700;
+  color:var(--t3);cursor:pointer;border-radius:40px;
+  transition:all .28s cubic-bezier(.4,0,.2,1);letter-spacing:-.1px;white-space:nowrap}
+.nav-tab .ntag{font-size:9px;font-weight:500;margin-left:4px;opacity:.65}
+.nav-tab.on{background:linear-gradient(135deg,var(--od),var(--o));color:#fff;
+  box-shadow:0 3px 16px rgba(241,90,36,.42)}
+.nav-tab:not(.on):hover{color:var(--t1);background:rgba(255,255,255,.06)}
+
+/* MAIN */
+main{padding:44px 48px 90px;max-width:1400px;margin:0 auto}
+.view{display:none}
+.view.on{display:block;animation:rise .35s ease}
+@keyframes rise{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
+
+/* SECTION HEADER */
+.sec{display:flex;align-items:center;gap:9px;margin:28px 0 14px}
+.sec-bar{width:3px;height:18px;background:linear-gradient(180deg,var(--o),transparent);border-radius:2px;flex-shrink:0}
+.sec-ttl{font-family:'Sora',sans-serif;font-size:15px;font-weight:700;color:var(--t1);letter-spacing:-.3px}
+.sec-sub{font-size:10px;color:var(--t3);margin-left:auto}
+
+/* MES BADGE */
+.mbadge{display:inline-flex;align-items:center;gap:7px;padding:4px 12px;border-radius:20px;
+  font-size:10px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;margin-bottom:16px}
+.m-jan{background:rgba(74,158,232,.11);border:1px solid rgba(74,158,232,.28);color:#5AABF0}
+.m-fev{background:rgba(241,90,36,.11);border:1px solid rgba(241,90,36,.28);color:var(--o)}
+
+/* KPIs */
+.kpis{display:grid;gap:12px;margin-bottom:20px}
+.kpis-4{grid-template-columns:repeat(4,1fr)}
+.kpis-5{grid-template-columns:repeat(5,1fr)}
+.kpi{background:var(--c1);border:1px solid var(--b1);border-radius:var(--r);
+  padding:18px 16px 16px;position:relative;overflow:hidden;
+  transition:border-color .2s,transform .18s;cursor:default}
+.kpi::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:var(--o);transform:scaleX(0);transform-origin:left;transition:transform .3s ease}
+.kpi:hover{border-color:var(--bo);transform:translateY(-2px)}
+.kpi:hover::before{transform:scaleX(1)}
+.ki{font-size:17px;margin-bottom:10px;display:block}
+.kl{font-size:9px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--t3);margin-bottom:5px}
+.kv{font-family:'Sora',sans-serif;font-size:34px;font-weight:900;
+  letter-spacing:-1.8px;line-height:1;color:var(--t1);margin-bottom:4px}
+.kv.ac{color:var(--o)}
+.kv.bl{color:#5AABF0}
+.kv.am{color:#F0B030}
+.kn{font-size:11px;color:var(--t2);line-height:1.35}
+
+/* GRID / CARD */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:14px}
+.g1{margin-bottom:14px}
+.card{background:var(--c1);border:1px solid var(--b1);border-radius:var(--r);
+  padding:22px;transition:border-color .2s}
+.card:hover{border-color:rgba(241,90,36,.16)}
+.ct{font-family:'Sora',sans-serif;font-size:13px;font-weight:700;
+  color:var(--t1);margin-bottom:2px;letter-spacing:-.3px}
+.cs{font-size:10px;color:var(--t3);margin-bottom:18px}
+
+/* SPLIT (month cols) */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+
+/* FUNNEL */
+.fnw{display:flex;flex-direction:column;gap:7px;margin-top:14px}
+.fnrow{display:grid;grid-template-columns:150px 1fr 100px;align-items:center;gap:14px}
+.fnsn{font-size:9px;font-weight:700;color:var(--t3);margin-bottom:1px;
+  text-transform:uppercase;letter-spacing:.6px}
+.fnnum{font-family:'Sora',sans-serif;font-size:20px;font-weight:900;
+  color:var(--t1);letter-spacing:-.8px;line-height:1}
+.fntrack{height:32px;background:rgba(255,255,255,.05);border-radius:6px;overflow:hidden}
+.fnfill{height:100%;border-radius:6px;display:flex;align-items:center;
+  padding-left:10px;position:relative;overflow:hidden}
+.fnfill::after{content:'';position:absolute;top:0;left:-80%;width:50%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.13),transparent);
+  animation:sh 3s ease-in-out infinite}
+@keyframes sh{0%{left:-80%}100%{left:180%}}
+.fnfl{font-family:'Sora',sans-serif;font-size:11px;font-weight:700;
+  color:#fff;white-space:nowrap;position:relative;z-index:1}
+.fnr{text-align:right}
+.fnpct{font-family:'Sora',sans-serif;font-size:17px;font-weight:800;
+  color:var(--t1);letter-spacing:-.6px}
+.fnps{font-size:9px;color:var(--t3)}
+
+/* TABLE */
+.tscroll{overflow-x:auto}
+table{width:100%;border-collapse:collapse}
+thead th{padding:9px 11px;text-align:left;font-size:9px;font-weight:700;
+  letter-spacing:1px;text-transform:uppercase;color:var(--t2);
+  background:var(--c2);border-bottom:1px solid var(--b2);white-space:nowrap}
+thead th:first-child{padding-left:18px}
+tbody tr{border-bottom:1px solid rgba(255,255,255,.035);transition:background .14s}
+tbody tr:hover{background:rgba(241,90,36,.04)}
+tbody tr:last-child{border-bottom:none}
+tbody td{padding:10px 11px;font-size:11px;color:var(--t2);vertical-align:middle}
+tbody td:first-child{padding-left:18px;color:var(--t1);font-size:11.5px;font-weight:500;max-width:280px;line-height:1.4}
+.tn{text-align:center;font-family:'Sora',sans-serif;font-size:12px;font-weight:600;color:var(--t1)}
+.tz{color:var(--t4)!important;font-weight:400}
+.tt{text-align:center;font-family:'Sora',sans-serif;font-size:13px;font-weight:800;color:var(--o)!important}
+.tb{min-width:100px}
+.mb{display:flex;align-items:center;gap:5px}
+.mbt{flex:1;height:3px;background:rgba(255,255,255,.07);border-radius:2px;overflow:hidden}
+.mbf{height:100%;background:linear-gradient(90deg,var(--od),var(--o));border-radius:2px}
+.mbp{font-family:'Sora',sans-serif;font-size:9px;font-weight:700;color:var(--t3);width:32px;text-align:right}
+.rk{display:inline-flex;align-items:center;justify-content:center;
+  width:17px;height:17px;border-radius:4px;font-family:'Sora',sans-serif;
+  font-size:8px;font-weight:800;margin-right:7px;flex-shrink:0;vertical-align:middle}
+.rk1{background:rgba(241,90,36,.24);color:var(--o)}
+.rk2{background:rgba(245,166,35,.17);color:#F0B030}
+.rk3{background:rgba(255,255,255,.09);color:var(--t2)}
+.rkn{background:rgba(255,255,255,.04);color:var(--t3)}
+.divl{height:1px;background:linear-gradient(90deg,transparent,var(--b2),transparent);margin:4px 0 14px}
+
+/* TREND ARROW */
+.trend{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:600;margin-left:6px}
+.up{color:#EF5350}.dn{color:#26C36A}
+
+/* FOOTER */
+footer{text-align:center;padding:24px;color:var(--t3);font-size:11px;border-top:1px solid var(--b1)}
+footer b{color:var(--o)}
+
+@media(max-width:1100px){
+  .kpis-5{grid-template-columns:repeat(3,1fr)}
+  .g3{grid-template-columns:1fr 1fr}
+  .split{grid-template-columns:1fr}
+}
+@media(max-width:900px){
+  header,main,.hero,.nav-wrap{padding-left:18px;padding-right:18px}
+  .hero h1{font-size:32px}
+  .kpis-4,.kpis-5{grid-template-columns:repeat(2,1fr)}
+  .g2,.g3,.split{grid-template-columns:1fr}
+  .fnrow{grid-template-columns:100px 1fr 80px;gap:8px}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo"><img src="data:image/png;base64,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" alt="Certifica"></div>
+  <span class="hbadge">Relatório Comercial 2026</span>
+</header>
+
+<div class="hero">
+  <div class="hg1"></div><div class="hg2"></div><div class="hrule"></div>
+  <div class="hc">
+    <div class="eyebrow"><div class="edot"></div><span>Funil de Vendas · PI &amp; PA · Jan–Fev 2026</span></div>
+    <h1>Motivos de Perda<br><span class="hl">por Etapa no Funil</span></h1>
+    <p>Diagnóstico completo dos pontos de abandono no pipeline comercial — visão consolidada, por mês e por setor (PI e PA).</p>
+  </div>
+</div>
+
+<div class="nav-wrap">
+  <div class="nav-pill">
+    <button class="nav-tab on"  onclick="go('total',this)">📊 Total Geral</button>
+    <button class="nav-tab"     onclick="go('jan-pi',this)">Janeiro · PI</button>
+    <button class="nav-tab"     onclick="go('jan-pa',this)">Janeiro · PA</button>
+    <button class="nav-tab"     onclick="go('fev-pi',this)">Fevereiro · PI</button>
+    <button class="nav-tab"     onclick="go('fev-pa',this)">Fevereiro · PA</button>
+  </div>
+</div>
+
+<main>
+
+<!-- ══════════════════ TOTAL GERAL ══════════════════ -->
+<div class="view on" id="v-total">
+
+  <div class="kpis kpis-5">
+    <div class="kpi"><span class="ki">🎯</span><div class="kl">Total Geral</div><div class="kv ac">4.438</div><div class="kn">PI + PA · Jan + Fev 2026</div></div>
+    <div class="kpi"><span class="ki">📘</span><div class="kl">Total PI</div><div class="kv">3.643</div><div class="kn">Parceiro Indicador</div></div>
+    <div class="kpi"><span class="ki">📙</span><div class="kl">Total PA</div><div class="kv am">795</div><div class="kn">Ponto de Atendimento</div></div>
+    <div class="kpi"><span class="ki">📅</span><div class="kl">Janeiro 2026</div><div class="kv bl">1.221</div><div class="kn">PI: 1.174 · PA: 47</div></div>
+    <div class="kpi"><span class="ki">📅</span><div class="kl">Fevereiro 2026</div><div class="kv">3.217</div><div class="kn">PI: 2.469 · PA: 748</div></div>
+  </div>
+
+  <div class="g2">
+    <div class="card">
+      <div class="ct">Evolução Mensal — PI vs PA</div>
+      <div class="cs">Volume de perdas por mês e setor</div>
+      <canvas id="c-evol" height="200"></canvas>
+    </div>
+    <div class="card">
+      <div class="ct">Distribuição PI vs PA (Total)</div>
+      <div class="cs">Participação percentual no acumulado Jan+Fev</div>
+      <canvas id="c-donut" height="200"></canvas>
+    </div>
+  </div>
+
+  <div class="sec"><div class="sec-bar"></div><span class="sec-ttl">📘 PI — Ranking Acumulado de Motivos</span><span class="sec-sub">Jan + Fev · 3.643 perdas</span></div>
+  <div class="g2">
+    <div class="card">
+      <div class="ct">Top 8 Motivos — PI Total</div><div class="cs">Volume acumulado Jan + Fev</div>
+      <canvas id="c-pi-rank" height="240"></canvas>
+    </div>
+    <div class="card">
+      <div class="ct">Comparativo Mensal Top 6 — PI</div><div class="cs">Janeiro vs Fevereiro por motivo</div>
+      <canvas id="c-pi-cmp" height="240"></canvas>
+    </div>
+  </div>
+  <div class="card g1">
+    <div class="ct">Tabela Completa PI</div><div class="cs">Todos os motivos · Jan, Fev e Total</div>
+    <div class="divl"></div>
+    <div class="tscroll">
+      <table><thead><tr><th>Motivo de Perda</th><th style="text-align:center">Janeiro</th><th style="text-align:center">Fevereiro</th><th style="text-align:center">Total</th><th style="text-align:center;min-width:105px">% do Total</th></tr></thead>
+      <tbody id="tb-pi-total"></tbody></table>
+    </div>
+  </div>
+
+  <div class="sec"><div class="sec-bar"></div><span class="sec-ttl">📙 PA — Ranking Acumulado de Motivos</span><span class="sec-sub">Jan + Fev · 795 perdas</span></div>
+  <div class="g2">
+    <div class="card">
+      <div class="ct">Top 8 Motivos — PA Total</div><div class="cs">Volume acumulado Jan + Fev</div>
+      <canvas id="c-pa-rank" height="240"></canvas>
+    </div>
+    <div class="card">
+      <div class="ct">Comparativo Mensal Top 6 — PA</div><div class="cs">Janeiro vs Fevereiro por motivo</div>
+      <canvas id="c-pa-cmp" height="240"></canvas>
+    </div>
+  </div>
+  <div class="card g1">
+    <div class="ct">Tabela Completa PA</div><div class="cs">Todos os motivos · Jan, Fev e Total</div>
+    <div class="divl"></div>
+    <div class="tscroll">
+      <table><thead><tr><th>Motivo de Perda</th><th style="text-align:center">Janeiro</th><th style="text-align:center">Fevereiro</th><th style="text-align:center">Total</th><th style="text-align:center;min-width:105px">% do Total</th></tr></thead>
+      <tbody id="tb-pa-total"></tbody></table>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════ JANEIRO PI ══════════════════ -->
+<div class="view" id="v-jan-pi">
+  <div class="mbadge m-jan">📅 Janeiro 2026 · PI — Parceiro Indicador</div>
+  <div class="kpis kpis-4">
+    <div class="kpi"><span class="ki">📉</span><div class="kl">Total Perdas PI</div><div class="kv bl">1.174</div><div class="kn">Janeiro 2026</div></div>
+    <div class="kpi"><span class="ki">📞</span><div class="kl">Pior Etapa</div><div class="kv">631</div><div class="kn">1ª Ligação · 53,7% do total</div></div>
+    <div class="kpi"><span class="ki">🔁</span><div class="kl">Motivo nº 1</div><div class="kv">721</div><div class="kn">Lead não retornou (61,4%)</div></div>
+    <div class="kpi"><span class="ki">📊</span><div class="kl">Prospecção</div><div class="kv">216</div><div class="kn">18,4% do total</div></div>
+  </div>
+  <div class="g2">
+    <div class="card">
+      <div class="ct">Top 8 Motivos — PI Janeiro</div><div class="cs">Volume por motivo</div>
+      <canvas id="c-jan-pi-rank" height="230"></canvas>
+    </div>
+    <div class="card">
+      <div class="ct">Funil de Perdas — PI Janeiro</div><div class="cs">Proporção real · 1.174 perdas = 100%</div>
+      <div class="fnw" id="fn-jan-pi"></div>
+    </div>
+  </div>
+  <div class="card g1">
+    <div class="ct">Detalhamento Motivo × Etapa — PI Janeiro</div><div class="cs">Volume por etapa do funil</div>
+    <div class="divl"></div>
+    <div class="tscroll">
+      <table><thead><tr><th>Motivo de Perda</th><th style="text-align:center">Prospecção</th><th style="text-align:center">1ª Ligação</th><th style="text-align:center">Apres. Proposta</th><th style="text-align:center">Em Análise</th><th style="text-align:center">Fechado</th><th style="text-align:center">Total</th><th style="text-align:center;min-width:105px">%</th></tr></thead>
+      <tbody id="tb-jan-pi"></tbody></table>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════ JANEIRO PA ══════════════════ -->
+<div class="view" id="v-jan-pa">
+  <div class="mbadge m-jan">📅 Janeiro 2026 · PA — Ponto de Atendimento</div>
+  <div class="kpis kpis-4">
+    <div class="kpi"><span class="ki">📉</span><div class="kl">Total Perdas PA</div><div class="kv bl">47</div><div class="kn">Janeiro 2026</div></div>
+    <div class="kpi"><span class="ki">📞</span><div class="kl">Pior Etapa</div><div class="kv">32</div><div class="kn">Em Análise · 68,1% do total</div></div>
+    <div class="kpi"><span class="ki">🔁</span><div class="kl">Motivo nº 1</div><div class="kv">14</div><div class="kn">Preferiu c/ concorrente (29,8%)</div></div>
+    <div class="kpi"><span class="ki">📊</span><div class="kl">Apres. Proposta</div><div class="kv">14</div><div class="kn">29,8% do total</div></div>
+  </div>
+  <div class="g2">
+    <div class="card">
+      <div class="ct">Top Motivos — PA Janeiro</div><div class="cs">Volume por motivo</div>
+      <canvas id="c-jan-pa-rank" height="230"></canvas>
+    </div>
+    <div class="card">
+      <div class="ct">Funil de Perdas — PA Janeiro</div><div class="cs">Proporção real · 47 perdas = 100%</div>
+      <div class="fnw" id="fn-jan-pa"></div>
+    </div>
+  </div>
+  <div class="card g1">
+    <div class="ct">Detalhamento Motivo × Etapa — PA Janeiro</div><div class="cs">Volume por etapa do funil</div>
+    <div class="divl"></div>
+    <div class="tscroll">
+      <table><thead><tr><th>Motivo de Perda</th><th style="text-align:center">Apres. Proposta</th><th style="text-align:center">Em Análise</th><th style="text-align:center">1ª Ligação</th><th style="text-align:center">Total</th><th style="text-align:center;min-width:105px">%</th></tr></thead>
+      <tbody id="tb-jan-pa"></tbody></table>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════ FEVEREIRO PI ══════════════════ -->
+<div class="view" id="v-fev-pi">
+  <div class="mbadge m-fev">📅 Fevereiro 2026 · PI — Parceiro Indicador</div>
+  <div class="kpis kpis-4">
+    <div class="kpi"><span class="ki">📉</span><div class="kl">Total Perdas PI</div><div class="kv ac">2.469</div><div class="kn">Fevereiro 2026</div></div>
+    <div class="kpi"><span class="ki">📞</span><div class="kl">Pior Etapa</div><div class="kv">1.477</div><div class="kn">1ª Ligação · 59,8% do total</div></div>
+    <div class="kpi"><span class="ki">🔁</span><div class="kl">Motivo nº 1</div><div class="kv">962</div><div class="kn">Lead não retornou (38,9%)</div></div>
+    <div class="kpi"><span class="ki">📊</span><div class="kl">Prospecção</div><div class="kv">459</div><div class="kn">18,6% do total</div></div>
+  </div>
+  <div class="g2">
+    <div class="card">
+      <div class="ct">Top 8 Motivos — PI Fevereiro</div><div class="cs">Volume por motivo</div>
+      <canvas id="c-fev-pi-rank" height="230"></canvas>
+    </div>
+    <div class="card">
+      <div class="ct">Funil de Perdas — PI Fevereiro</div><div class="cs">Proporção real · 2.469 perdas = 100%</div>
+      <div class="fnw" id="fn-fev-pi"></div>
+    </div>
+  </div>
+  <div class="card g1">
+    <div class="ct">Detalhamento Motivo × Etapa — PI Fevereiro</div><div class="cs">Volume por etapa do funil</div>
+    <div class="divl"></div>
+    <div class="tscroll">
+      <table><thead><tr><th>Motivo de Perda</th><th style="text-align:center">Prospecção</th><th style="text-align:center">1ª Ligação</th><th style="text-align:center">Apres. Proposta</th><th style="text-align:center">Em Análise</th><th style="text-align:center">Fechado</th><th style="text-align:center">Total</th><th style="text-align:center;min-width:105px">%</th></tr></thead>
+      <tbody id="tb-fev-pi"></tbody></table>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════ FEVEREIRO PA ══════════════════ -->
+<div class="view" id="v-fev-pa">
+  <div class="mbadge m-fev">📅 Fevereiro 2026 · PA — Ponto de Atendimento</div>
+  <div class="kpis kpis-4">
+    <div class="kpi"><span class="ki">📉</span><div class="kl">Total Perdas PA</div><div class="kv am">748</div><div class="kn">Fevereiro 2026</div></div>
+    <div class="kpi"><span class="ki">📞</span><div class="kl">Pior Etapa</div><div class="kv">618</div><div class="kn">1ª Ligação · 82,6% do total</div></div>
+    <div class="kpi"><span class="ki">🔁</span><div class="kl">Motivo nº 1</div><div class="kv">258</div><div class="kn">Sem perfil p/ segmento (34,5%)</div></div>
+    <div class="kpi"><span class="ki">📊</span><div class="kl">Em Credenciamento</div><div class="kv">1</div><div class="kn">perda na etapa final</div></div>
+  </div>
+  <div class="g2">
+    <div class="card">
+      <div class="ct">Top 8 Motivos — PA Fevereiro</div><div class="cs">Volume por motivo</div>
+      <canvas id="c-fev-pa-rank" height="230"></canvas>
+    </div>
+    <div class="card">
+      <div class="ct">Funil de Perdas — PA Fevereiro</div><div class="cs">Proporção real · 748 perdas = 100%</div>
+      <div class="fnw" id="fn-fev-pa"></div>
+    </div>
+  </div>
+  <div class="card g1">
+    <div class="ct">Detalhamento Motivo × Etapa — PA Fevereiro</div><div class="cs">Volume por etapa do funil</div>
+    <div class="divl"></div>
+    <div class="tscroll">
+      <table><thead><tr><th>Motivo de Perda</th><th style="text-align:center">Prospecção</th><th style="text-align:center">1ª Ligação</th><th style="text-align:center">Apres. Proposta</th><th style="text-align:center">Em Análise</th><th style="text-align:center">Fechado</th><th style="text-align:center">Em Creden.</th><th style="text-align:center">Total</th><th style="text-align:center;min-width:105px">%</th></tr></thead>
+      <tbody id="tb-fev-pa"></tbody></table>
+    </div>
+  </div>
+</div>
+
+</main>
+<footer>Relatório Comercial 2026 · <b>Certifica</b> · PI = Parceiro Indicador · PA = Ponto de Atendimento</footer>
+
+<script>
+const SC=['#F15A24','#E8891A','#D4C420','#27AE60','#5AABF0','#9B59B6'];
+Chart.defaults.color='#8A7E76';
+Chart.defaults.font.family="'Inter',sans-serif";
+const CI={};
+function mk(id,cfg){const el=document.getElementById(id);if(!el)return;if(CI[id])CI[id].destroy();CI[id]=new Chart(el.getContext('2d'),cfg)}
+
+// ── DATA ────────────────────────────────────────────────────────────────────
+const D={
+  pi:[
+    {l:'Lead não retornou',                              jan:721,fev:962, t:1683},
+    {l:'Perfil não atende expectativa comercial',        jan:52, fev:387, t:439},
+    {l:'Sem interesse na parceria por vídeo',            jan:119,fev:292, t:411},
+    {l:'Preferiu continuar com o concorrente',           jan:105,fev:284, t:389},
+    {l:'Não consegui contato (várias tentativas)',       jan:69, fev:254, t:323},
+    {l:'Não consegui contato após apresentação',         jan:76, fev:108, t:184},
+    {l:'Declinado AR do Grupo Certifica',                jan:7,  fev:54,  t:61},
+    {l:'Não tem perfil para nosso segmento',             jan:3,  fev:52,  t:55},
+    {l:'Já é parceiro nas ARs próprias',                 jan:4,  fev:33,  t:37},
+    {l:'Já estava em Credenciamento conosco',            jan:7,  fev:19,  t:26},
+    {l:'Já é AR (PA e PI)',                              jan:2,  fev:10,  t:12},
+    {l:'Já em contato com CM e/ou a Rede',               jan:4,  fev:5,   t:9},
+    {l:'Declinado — Certifica negociando AC/AR',         jan:3,  fev:6,   t:9},
+    {l:'Fechou com concorrente (preço/condições)',       jan:1,  fev:3,   t:4},
+    {l:'Etapa da perda dentro do funil',                 jan:1,  fev:0,   t:1},
+  ],
+  pa:[
+    {l:'Não tem perfil para nosso segmento',             jan:0,  fev:258, t:258},
+    {l:'Perfil não atende expectativa comercial',        jan:6,  fev:156, t:162},
+    {l:'Preferiu continuar com o concorrente',           jan:14, fev:99,  t:113},
+    {l:'Declinado AR do Grupo Certifica',                jan:2,  fev:110, t:112},
+    {l:'Não consegui contato (várias tentativas)',       jan:13, fev:68,  t:81},
+    {l:'Já é AR (PA e PI)',                              jan:4,  fev:26,  t:30},
+    {l:'Possui contrato de exclusividade (PA)',          jan:1,  fev:16,  t:17},
+    {l:'Não consegui contato após apresentação',         jan:5,  fev:0,   t:5},
+    {l:'Já é parceiro nas ARs próprias',                 jan:2,  fev:3,   t:5},
+    {l:'Declinado — Certifica negociando AC/AR',         jan:0,  fev:3,   t:3},
+    {l:'Fechou com concorrente (preço/condições)',       jan:0,  fev:2,   t:2},
+    {l:'Lead fechou com concorrente na negociação',      jan:0,  fev:2,   t:2},
+    {l:'Já em contato com CM e/ou a Rede',               jan:0,  fev:2,   t:2},
+    {l:'Não quer disponibilizar máquina exclusiva',      jan:0,  fev:1,   t:1},
+    {l:'Atual parceria cobriu nossa proposta',           jan:0,  fev:1,   t:1},
+    {l:'Perfil AR pelo volume/preço baixo (PA)',         jan:0,  fev:1,   t:1},
+  ],
+  jan_pi:{
+    stages:['Prospecção','1ª Ligação','Apres. Proposta','Em Análise','Fechado'],
+    totals:[216,631,42,283,2],grandTotal:1174,
+    reasons:[
+      {l:'Lead não retornou',                            v:[196,453,5,66,1],  t:721},
+      {l:'Sem interesse na parceria por vídeo',          v:[3,74,4,38,0],     t:119},
+      {l:'Preferiu continuar com o concorrente',         v:[4,31,16,54,0],    t:105},
+      {l:'Não consegui contato após apresentação',       v:[0,1,0,75,0],      t:76},
+      {l:'Não consegui contato (várias tentativas)',     v:[0,23,7,39,0],     t:69},
+      {l:'Perfil não atende expectativa comercial',      v:[9,37,1,5,0],      t:52},
+      {l:'Declinado AR do Grupo Certifica',              v:[1,2,3,1,0],       t:7},
+      {l:'Já estava em Credenciamento conosco',          v:[2,0,3,1,1],       t:7},
+      {l:'Já é parceiro nas ARs próprias',               v:[0,2,1,1,0],       t:4},
+      {l:'Já em contato com CM e/ou a Rede',             v:[0,2,1,1,0],       t:4},
+      {l:'Declinado — Certifica negociando AC/AR',       v:[0,2,1,0,0],       t:3},
+      {l:'Não tem perfil para nosso segmento',           v:[0,2,0,1,0],       t:3},
+      {l:'Já é AR (PA e PI)',                            v:[1,1,0,0,0],       t:2},
+      {l:'Fechou com concorrente (preço/condições)',     v:[0,0,0,1,0],       t:1},
+      {l:'Etapa da perda dentro do funil',               v:[0,1,0,0,0],       t:1},
+    ]},
+  jan_pa:{
+    stages:['Apres. Proposta','Em Análise','1ª Ligação'],
+    totals:[14,32,1],grandTotal:47,
+    reasons:[
+      {l:'Preferiu continuar com o concorrente',         v:[2,12,0],  t:14},
+      {l:'Não consegui contato (várias tentativas)',     v:[6,7,0],   t:13},
+      {l:'Perfil não atende expectativa comercial',      v:[3,3,0],   t:6},
+      {l:'Não consegui contato após apresentação',       v:[0,5,0],   t:5},
+      {l:'Já é AR (PA e PI)',                            v:[3,1,0],   t:4},
+      {l:'Já é parceiro nas ARs próprias',               v:[0,2,0],   t:2},
+      {l:'Declinado AR do Grupo Certifica',              v:[0,1,1],   t:2},
+      {l:'Possui contrato de exclusividade (PA)',        v:[0,1,0],   t:1},
+    ]},
+  fev_pi:{
+    stages:['Prospecção','1ª Ligação','Apres. Proposta','Em Análise','Fechado'],
+    totals:[459,1477,73,453,7],grandTotal:2469,
+    reasons:[
+      {l:'Lead não retornou',                            v:[262,637,1,58,4],  t:962},
+      {l:'Perfil não atende expectativa comercial',      v:[104,248,13,22,0], t:387},
+      {l:'Sem interesse na parceria por vídeo',          v:[21,156,12,101,2], t:292},
+      {l:'Preferiu continuar com o concorrente',         v:[44,124,25,90,1],  t:284},
+      {l:'Não consegui contato (várias tentativas)',     v:[5,186,9,54,0],    t:254},
+      {l:'Não consegui contato após apresentação',       v:[1,0,0,107,0],     t:108},
+      {l:'Declinado AR do Grupo Certifica',              v:[10,27,4,13,0],    t:54},
+      {l:'Não tem perfil para nosso segmento',           v:[1,49,1,1,0],      t:52},
+      {l:'Já é parceiro nas ARs próprias',               v:[1,30,0,2,0],      t:33},
+      {l:'Já estava em Credenciamento conosco',          v:[6,7,6,0,0],       t:19},
+      {l:'Já é AR (PA e PI)',                            v:[3,7,0,0,0],       t:10},
+      {l:'Declinado — Certifica negociando AC/AR',       v:[0,4,1,1,0],       t:6},
+      {l:'Já em contato com CM e/ou a Rede',             v:[1,1,1,2,0],       t:5},
+      {l:'Fechou com concorrente (preço/condições)',     v:[0,1,0,2,0],       t:3},
+    ]},
+  fev_pa:{
+    stages:['Prospecção','1ª Ligação','Apres. Proposta','Em Análise','Fechado','Em Creden.'],
+    totals:[10,618,47,70,2,1],grandTotal:748,
+    reasons:[
+      {l:'Não tem perfil para nosso segmento',           v:[7,248,0,3,0,0],   t:258},
+      {l:'Perfil não atende expectativa comercial',      v:[0,131,16,9,0,0],  t:156},
+      {l:'Declinado AR do Grupo Certifica',              v:[3,101,5,0,1,0],   t:110},
+      {l:'Preferiu continuar com o concorrente',         v:[0,56,7,34,1,1],   t:99},
+      {l:'Não consegui contato (várias tentativas)',     v:[0,49,4,15,0,0],   t:68},
+      {l:'Já é AR (PA e PI)',                            v:[0,18,6,2,0,0],    t:26},
+      {l:'Possui contrato de exclusividade (PA)',        v:[0,9,4,3,0,0],     t:16},
+      {l:'Já é parceiro nas ARs próprias',               v:[0,3,0,0,0,0],     t:3},
+      {l:'Declinado — Certifica negociando AC/AR',       v:[0,0,3,0,0,0],     t:3},
+      {l:'Fechou com concorrente (preço/condições)',     v:[0,0,1,1,0,0],     t:2},
+      {l:'Lead fechou com concorrente na negociação',    v:[0,1,0,1,0,0],     t:2},
+      {l:'Já em contato com CM e/ou a Rede',             v:[0,2,0,0,0,0],     t:2},
+      {l:'Não quer disponibilizar máquina exclusiva',    v:[0,0,1,0,0,0],     t:1},
+      {l:'Atual parceria cobriu nossa proposta',         v:[0,0,0,1,0,0],     t:1},
+      {l:'Perfil AR pelo volume/preço baixo (PA)',       v:[0,0,0,1,0,0],     t:1},
+    ]},
+};
+
+// ── HELPERS ─────────────────────────────────────────────────────────────────
+const OCOL = i=>i===0?'#F15A24':i<3?'rgba(241,90,36,.62)':'rgba(241,90,36,.32)';
+const AXIS = {x:{grid:{color:'rgba(255,255,255,.055)'},ticks:{color:'#8A7E76',font:{size:10}}},
+              y:{grid:{color:'rgba(255,255,255,.055)'},ticks:{color:'#BEB3AA',font:{size:10}}}};
+
+function hbar(id,labels,vals){
+  mk(id,{type:'bar',data:{labels,datasets:[{data:vals,backgroundColor:vals.map((_,i)=>OCOL(i)),borderRadius:5,borderSkipped:false}]},
+    options:{indexAxis:'y',responsive:true,
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>' '+c.raw.toLocaleString('pt-BR')+' leads'}}},
+      scales:{x:{...AXIS.x},y:{grid:{display:false},ticks:{color:'#BEB3AA',font:{size:10}}}}}});
+}
+function grouped(id,labels,ds){
+  mk(id,{type:'bar',data:{labels,datasets:ds},
+    options:{responsive:true,
+      plugins:{legend:{position:'bottom',labels:{color:'#BEB3AA',font:{size:10},boxWidth:9,padding:12}},
+               tooltip:{mode:'index',intersect:false}},
+      scales:{x:{...AXIS.x,grid:{display:false}},y:{...AXIS.y}}}});
+}
+function donut(id,labels,vals,colors){
+  mk(id,{type:'doughnut',data:{labels,datasets:[{data:vals,backgroundColor:colors,borderWidth:0,hoverOffset:5}]},
+    options:{responsive:true,cutout:'66%',
+      plugins:{legend:{position:'bottom',labels:{color:'#BEB3AA',font:{size:10},padding:12,boxWidth:10}},
+               tooltip:{callbacks:{label:c=>` ${c.label}: ${c.raw.toLocaleString('pt-BR')}`}}}}});
+}
+
+function doFunnel(elId,d){
+  const el=document.getElementById(elId);if(!el)return;
+  el.innerHTML=d.stages.map((s,i)=>{
+    const n=d.totals[i],pct=(n/d.grandTotal)*100,
+          w=Math.max(pct,1.2).toFixed(2),ps=pct.toFixed(1),col=SC[i]||'#F15A24';
+    return`<div class="fnrow">
+      <div><div class="fnsn">${s}</div><div class="fnnum">${n.toLocaleString('pt-BR')}</div></div>
+      <div class="fntrack"><div class="fnfill" style="width:${w}%;background:linear-gradient(90deg,${col}BB,${col})"><span class="fnfl">${ps}%</span></div></div>
+      <div class="fnr"><div class="fnpct">${ps}%</div><div class="fnps">do total</div></div>
+    </div>`;
+  }).join('');
+}
+
+function tbTotal(id,rows,grand){
+  const tb=document.getElementById(id);if(!tb)return;
+  const sr=[...rows].sort((a,b)=>b.t-a.t),mx=sr[0].t;
+  tb.innerHTML=sr.map((r,i)=>{
+    const pct=(r.t/grand*100).toFixed(1),bw=Math.round(r.t/mx*100),
+          rc=i===0?'rk1':i===1?'rk2':i===2?'rk3':'rkn';
+    const jv=r.jan>0?r.jan.toLocaleString('pt-BR'):'<span class="tz">—</span>';
+    const fv=r.fev>0?r.fev.toLocaleString('pt-BR'):'<span class="tz">—</span>';
+    return`<tr><td><span class="rk ${rc}">${i+1}</span>${r.l}</td>
+      <td class="tn">${jv}</td><td class="tn">${fv}</td>
+      <td class="tt">${r.t.toLocaleString('pt-BR')}</td>
+      <td class="tb"><div class="mb"><div class="mbt"><div class="mbf" style="width:${bw}%"></div></div><span class="mbp">${pct}%</span></div></td></tr>`;
+  }).join('');
+}
+
+function tbMonth(id,d){
+  const tb=document.getElementById(id);if(!tb)return;
+  const sr=[...d.reasons].sort((a,b)=>b.t-a.t),mx=sr[0].t;
+  tb.innerHTML=sr.map((r,i)=>{
+    const pct=(r.t/d.grandTotal*100).toFixed(1),bw=Math.round(r.t/mx*100),
+          rc=i===0?'rk1':i===1?'rk2':i===2?'rk3':'rkn';
+    const cells=r.v.map(v=>v>0?`<td class="tn">${v.toLocaleString('pt-BR')}</td>`:`<td class="tn tz">—</td>`).join('');
+    return`<tr><td><span class="rk ${rc}">${i+1}</span>${r.l}</td>${cells}
+      <td class="tt">${r.t.toLocaleString('pt-BR')}</td>
+      <td class="tb"><div class="mb"><div class="mbt"><div class="mbf" style="width:${bw}%"></div></div><span class="mbp">${pct}%</span></div></td></tr>`;
+  }).join('');
+}
+
+function shorten(s,n=26){return s.length>n?s.slice(0,n)+'…':s}
+
+function init(){
+  // Total: evolução
+  grouped('c-evol',['Janeiro','Fevereiro'],[
+    {label:'PI',data:[1174,2469],backgroundColor:'#F15A24',borderRadius:7,borderSkipped:false},
+    {label:'PA',data:[47,748],backgroundColor:'rgba(241,90,36,.32)',borderRadius:7,borderSkipped:false}
+  ]);
+  donut('c-donut',['PI — 3.643','PA — 795'],[3643,795],['#F15A24','rgba(241,90,36,.3)']);
+
+  // PI total
+  const piS=[...D.pi].sort((a,b)=>b.t-a.t);
+  hbar('c-pi-rank',piS.slice(0,8).map(r=>shorten(r.l)),piS.slice(0,8).map(r=>r.t));
+  const pi6=piS.slice(0,6);
+  grouped('c-pi-cmp',pi6.map(r=>shorten(r.l,16)),[
+    {label:'Janeiro',data:pi6.map(r=>r.jan),backgroundColor:'rgba(90,171,240,.75)',borderRadius:5,borderSkipped:false},
+    {label:'Fevereiro',data:pi6.map(r=>r.fev),backgroundColor:'#F15A24',borderRadius:5,borderSkipped:false}
+  ]);
+  tbTotal('tb-pi-total',D.pi,3643);
+
+  // PA total
+  const paS=[...D.pa].sort((a,b)=>b.t-a.t);
+  hbar('c-pa-rank',paS.slice(0,8).map(r=>shorten(r.l)),paS.slice(0,8).map(r=>r.t));
+  const pa6=paS.slice(0,6);
+  grouped('c-pa-cmp',pa6.map(r=>shorten(r.l,16)),[
+    {label:'Janeiro',data:pa6.map(r=>r.jan),backgroundColor:'rgba(90,171,240,.75)',borderRadius:5,borderSkipped:false},
+    {label:'Fevereiro',data:pa6.map(r=>r.fev),backgroundColor:'#F15A24',borderRadius:5,borderSkipped:false}
+  ]);
+  tbTotal('tb-pa-total',D.pa,795);
+
+  // Jan PI
+  const jpis=[...D.jan_pi.reasons].sort((a,b)=>b.t-a.t);
+  hbar('c-jan-pi-rank',jpis.slice(0,8).map(r=>shorten(r.l)),jpis.slice(0,8).map(r=>r.t));
+  doFunnel('fn-jan-pi',D.jan_pi); tbMonth('tb-jan-pi',D.jan_pi);
+
+  // Jan PA
+  const jpas=[...D.jan_pa.reasons].sort((a,b)=>b.t-a.t);
+  hbar('c-jan-pa-rank',jpas.map(r=>shorten(r.l)),jpas.map(r=>r.t));
+  doFunnel('fn-jan-pa',D.jan_pa); tbMonth('tb-jan-pa',D.jan_pa);
+
+  // Fev PI
+  const fpis=[...D.fev_pi.reasons].sort((a,b)=>b.t-a.t);
+  hbar('c-fev-pi-rank',fpis.slice(0,8).map(r=>shorten(r.l)),fpis.slice(0,8).map(r=>r.t));
+  doFunnel('fn-fev-pi',D.fev_pi); tbMonth('tb-fev-pi',D.fev_pi);
+
+  // Fev PA
+  const fpas=[...D.fev_pa.reasons].sort((a,b)=>b.t-a.t);
+  hbar('c-fev-pa-rank',fpas.slice(0,8).map(r=>shorten(r.l)),fpas.slice(0,8).map(r=>r.t));
+  doFunnel('fn-fev-pa',D.fev_pa); tbMonth('tb-fev-pa',D.fev_pa);
+}
+
+function go(id,btn){
+  document.querySelectorAll('.nav-tab').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('on'));
+  document.getElementById('v-'+id).classList.add('on');
+}
+
+window.addEventListener('DOMContentLoaded',()=>setTimeout(init,80));
+</script>
+</body>
+</html>
